@@ -3,9 +3,12 @@
   width: 100%;
   min-height: 100vh;
   text-align: center;
-  padding-top: 10%;
   font-family: Tahoma;
   font-size: calc(10px + 2vmin);
   padding: 30px;
   border: 10px solid #ff0000;
+}
+
+.mystars{
+  font-size: 50px;
 }

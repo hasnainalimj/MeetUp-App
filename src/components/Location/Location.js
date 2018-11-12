@@ -11,29 +11,6 @@ const firestore = firebase.firestore();
 const settings = {/* your settings... */ timestampsInSnapshots: true};
 firestore.settings(settings);
 
-//Map Component
-const MyMapComponent = withScriptjs(
-  withGoogleMap(props => (
-    <GoogleMap
-      center={{
-        lat: props.coords.latitude,
-        lng: props.coords.longitude
-      }}
-      defaultZoom={15}
-    >
-      {props.isMarkerShown && (
-        <Marker
-          draggable={true}
-          position={{ lat: props.coords.latitude, lng: props.coords.longitude }}
-          onDragEnd={pos => {
-            props.updateCoords(pos.latLng.lat(), pos.latLng.lng());
-          }}
-        />
-      )}
-    </GoogleMap>
-  ))
-);
-
 export default class CurrentLocation extends React.Component {
   constructor() {
     super();
@@ -53,12 +30,13 @@ export default class CurrentLocation extends React.Component {
     const button = document.getElementById('btnAddLocation');
     const loader = document.createElement('i');
     loader.setAttribute('id', 'loading');
-    loader.setAttribute('class', 'fas fa-spinner')
+    loader.setAttribute('class', 'fas fa-spinner fa-spin')
     button.appendChild(loader);
 
     firebase.firestore().collection('users').doc(user_id).update({
       coords : {latitude : coords.latitude, longitude : coords.longitude},
-      registerd : true
+      registerd : true,
+      ratings : []
     }).then(resp => {
       localStorage.setItem('coords',JSON.stringify(coords));
       swal({
@@ -83,14 +61,15 @@ export default class CurrentLocation extends React.Component {
   // getting current Position
   componentDidMount() {
     this.setPosition();
-    console.log(this.state.coords);
+    // console.log(this.state.coords);
   }
   
   //setting current position
   setPosition = () => {
     navigator.geolocation.getCurrentPosition(position => {
       this.setState({ coords: position.coords });
-    });
+      // console.log(position.coords);
+    }); 
   };
 
   updateCoords(latitude, longitude) {
@@ -99,12 +78,6 @@ export default class CurrentLocation extends React.Component {
 
   render(){
     let { coords } = this.state;
-    // console.log("=======>",coords);
-    //getting coords array into local storage
-    // var user = JSON.parse(localStorage.getItem('user'));
-    // user['coords'] = coords;
-    // localStorage.setItem('user', JSON.stringify(user));
-    
     return (
       <div className='location-div'>
         <img src={Logo} alt="Logo" />
@@ -129,3 +102,27 @@ export default class CurrentLocation extends React.Component {
     );
   }
 }
+
+
+//Map Component
+const MyMapComponent = withScriptjs(
+  withGoogleMap(props => (
+    <GoogleMap
+      center={{
+        lat: props.coords.latitude,
+        lng: props.coords.longitude
+      }}
+      defaultZoom={14}
+    >
+      {props.isMarkerShown && (
+        <Marker
+          draggable={true}
+          position={{ lat: props.coords.latitude, lng: props.coords.longitude }}
+          onDragEnd={pos => {
+            props.updateCoords(pos.latLng.lat(), pos.latLng.lng());
+          }}
+        />
+      )}
+    </GoogleMap>
+  ))
+);

@@ -21,7 +21,7 @@
 
 .stack .card {
   width: 100%;
-  height: 450px;
+  height: 460px;
   position: absolute;
   top: 0;
   left: 0;
@@ -35,7 +35,8 @@
 .slider{
   width: 90%;
   height: 60%;
-  margin: 15px;
+  margin: 15px 15px 15px 15px;
+
 }
 
 .thumbnails{
@@ -63,7 +64,7 @@
 .buttons{
   width: 40px !important;
   border-radius: 100%;
-  margin-top: 7px;
+  margin-top: 2px;
 }
 
 .right{
@@ -77,5 +78,27 @@
 
 .navigators{
   display: none !important;
+}
+
+.ant-carousel .slick-slide {
+  text-align: center;
+  height: 265px;
+  line-height: 160px;
+  background: #FFF;
+  overflow: hidden;
+}
+
+.ant-carousel .slick-slide h3 {
+  color: #fff;
+}
+
+.parent-dots{
+  width: inherit;
+  height: 10px;
+  border: 1px solid blue;
+}
+
+.average-ratings{
+  font-size : 12px;
 }
 

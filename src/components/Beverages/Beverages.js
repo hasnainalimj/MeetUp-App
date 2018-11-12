@@ -55,7 +55,7 @@ export default class Beverages extends React.Component {
     const button = document.getElementById('btnAddBeverages');
     const loader = document.createElement('i');
     loader.setAttribute('id', 'loading');
-    loader.setAttribute('class', 'fas fa-spinner')
+    loader.setAttribute('class', 'fas fa-spinner fa-spin')
     button.appendChild(loader);
 
     firebase.firestore().collection('users').doc(user_id).update({
@@ -64,11 +64,6 @@ export default class Beverages extends React.Component {
     }).then(resp => {
       localStorage.setItem('beverages',beverages);
       localStorage.setItem('meetingTimings',meetingTimings);
-      swal({
-        title: "Beverages Added Successfully",
-        icon: "success",
-        button: "Ok", 
-      });
       this.props.history.push("/location");
     }).catch(err => {
       swal({

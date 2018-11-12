@@ -11,7 +11,7 @@ export default class MeetingPoint extends React.Component {
 		super(props);
 
 		this.state = ({
-			location : null,
+			location: null,
 			coords: null,
 			flag: false
 		})
@@ -34,51 +34,42 @@ export default class MeetingPoint extends React.Component {
 
 		// //Getting Nearest 3 Locations
 		// fetch('https://api.foursquare.com/v2/venues/search?client_id=MGPF54DCITXMHDEET2CSRSR01GSCFTGV24AKNC5TL4ZEV1K1&client_secret=UU4SDRIRFIB1M3GEJTLWLKBLJUACSFHGT3Q0QCS1NZDAJ20T&v=20180323&limit=3&ll=24.87,67.03')
-    	// 	.then(res => res.json())
-    	// 	.then(data => {
+		// 	.then(res => res.json())
+		// 	.then(data => {
 		// 		  console.log("Nearest->",data.response.venues);
 		// 		  this.setState({
 		// 			  nearestFlag : true,
 		// 			  nearestLocation : data.response.venues
 		// 		  })
-    	// 	});	
-		}
-
-	search() {
-		const { coords , location } = this.state;
-		const txtSearch = document.getElementById('txtSearch');
-		const searchingAPI = 'https://api.foursquare.com/v2/venues/search?client_id=MGPF54DCITXMHDEET2CSRSR01GSCFTGV24AKNC5TL4ZEV1K1&client_secret=UU4SDRIRFIB1M3GEJTLWLKBLJUACSFHGT3Q0QCS1NZDAJ20T&v=20180323&ll=' + coords.latitude + ',' + coords.longitude + '&query=' + txtSearch.value;
-		if (txtSearch.value) {
-			fetch(searchingAPI)
-				.then(res => res.json())
-				.then(data => {
-					// console.log("========>",data.response.venues);
-					this.setState({
-						flag: true,
-						location : data.response.venues
-					})
-				}).catch(error => {
-					this.setState({
-						flag : false
-					})
-				})
-		}
-		else {
-			swal({
-				title: "Invalid Input",
-				text: "Search Field Can't Be Empty!",
-				icon: "warning",
-			});
-		}
+		// 	});	
 	}
 
-	select(index){
-		const {location} = this.state;
+	search() {
+		const { coords, location } = this.state;
+		const txtSearch = document.getElementById('txtSearch');
+		const searchingAPI = 'https://api.foursquare.com/v2/venues/search?client_id=MGPF54DCITXMHDEET2CSRSR01GSCFTGV24AKNC5TL4ZEV1K1&client_secret=UU4SDRIRFIB1M3GEJTLWLKBLJUACSFHGT3Q0QCS1NZDAJ20T&v=20180323&ll=' + coords.latitude + ',' + coords.longitude + '&query=' + txtSearch.value;
+		fetch(searchingAPI)
+			.then(res => res.json())
+			.then(data => {
+				// console.log("========>",data.response.venues);
+				this.setState({
+					flag: true,
+					location: data.response.venues
+				})
+			}).catch(error => {
+				this.setState({
+					flag: false
+				})
+			})
+	}
+
+	select(index) {
+		const { location } = this.state;
 		const meetingLocation = {
-			meetingLocationName : location[index].name,
-			meetingLocationCoords : {
-				latitude : location[index].location.lat,
-				longitude : location[index].location.lng
+			meetingLocationName: location[index].name,
+			meetingLocationCoords: {
+				latitude: location[index].location.lat,
+				longitude: location[index].location.lng
 			}
 		}
 		swal({
@@ -94,38 +85,38 @@ export default class MeetingPoint extends React.Component {
 						title: "Location Selected",
 						icon: "success",
 					});
-					
-					localStorage.setItem('MeetingLocation',JSON.stringify(meetingLocation));
+
+					localStorage.setItem('MeetingLocation', JSON.stringify(meetingLocation));
 					this.props.history.push("/dateandtime");
 				} else {
 					swal("Cancel Successfully", {
 						icon: "success"
-					});				
+					});
 				}
 			});
 	}
 
-	direction(index){
-		const {location} = this.state;
+	direction(index) {
+		const { location } = this.state;
 		// console.log(location[index]);
 		const meetingLocation = {
-			meetingLocationName : location[index].name,
-			meetingLocationCoords : {
-				latitude : location[index].location.lat,
-				longitude : location[index].location.lng
+			meetingLocationName: location[index].name,
+			meetingLocationCoords: {
+				latitude: location[index].location.lat,
+				longitude: location[index].location.lng
 			}
 		}
-		localStorage.setItem('MeetingLocation',JSON.stringify(meetingLocation));
+		localStorage.setItem('MeetingLocation', JSON.stringify(meetingLocation));
 		this.props.history.push("/direction");
 	}
 
-	selectNearest(ind){
+	selectNearest(ind) {
 		const nearestLocation = JSON.parse(localStorage.getItem('nearestLocations'));
 		const meetingLocation = {
-			meetingLocationName : nearestLocation[ind].name,
-			meetingLocationCoords : {
-				latitude : nearestLocation[ind].location.lat,
-				longitude : nearestLocation[ind].location.lng
+			meetingLocationName: nearestLocation[ind].name,
+			meetingLocationCoords: {
+				latitude: nearestLocation[ind].location.lat,
+				longitude: nearestLocation[ind].location.lng
 			}
 		}
 		swal({
@@ -141,44 +132,44 @@ export default class MeetingPoint extends React.Component {
 						title: "Location Selected",
 						icon: "success",
 					});
-					
-					localStorage.setItem('MeetingLocation',JSON.stringify(meetingLocation));
+
+					localStorage.setItem('MeetingLocation', JSON.stringify(meetingLocation));
 					this.props.history.push("/dateandtime");
 				} else {
 					swal("Cancel Successfully", {
 						icon: "success"
-					});				
+					});
 				}
 			});
 	}
 
-	directionNearest(ind){
+	directionNearest(ind) {
 		const nearestLocation = JSON.parse(localStorage.getItem('nearestLocations'));
 		// console.log(nearestLocation[ind]);
 		const meetingLocation = {
-			meetingLocationName : nearestLocation[ind].name,
-			meetingLocationCoords : {
-				latitude : nearestLocation[ind].location.lat,
-				longitude : nearestLocation[ind].location.lng
+			meetingLocationName: nearestLocation[ind].name,
+			meetingLocationCoords: {
+				latitude: nearestLocation[ind].location.lat,
+				longitude: nearestLocation[ind].location.lng
 			}
 		}
 		// console.log(meetingLocation);
 
-		localStorage.setItem('MeetingLocation',JSON.stringify(meetingLocation));
+		localStorage.setItem('MeetingLocation', JSON.stringify(meetingLocation));
 		this.props.history.push("/direction");
 	}
 
 	render() {
-		const {  flag , location } = this.state;
+		const { flag, location } = this.state;
 		const nearestLocation = JSON.parse(localStorage.getItem('nearestLocations'));
 		return (
 			<div className="text-dark MeetingPoint">
 				<img src={Logo} alt='logo' />
-				<input type="text" placeholder="Search Location" className="form-control col-md-12 mt-5" id="txtSearch" />
-				<button className="btn btn-primary float-right mt-2" onClick={this.search}>Search</button>
+				<input type="text" placeholder="Search Location" className="form-control col-md-12 mt-5" id="txtSearch" onChange={this.search} />
+				{/* <button className="btn btn-primary float-right mt-2" onClick={this.search}>Search</button> */}
 				<br />
-				{flag && location.map((value,index) => {
-				return	<div className="card mt-5">
+				{flag && location.map((value, index) => {
+					return <div className="card mt-5">
 						<div className="card-body">
 							<h6 className="card-title float-left">{value.name}</h6>
 							<button className="btn btn-danger float-right btn-sm ml-1" onClick={this.direction.bind(this, index)}>Direction</button>
@@ -187,12 +178,12 @@ export default class MeetingPoint extends React.Component {
 					</div>
 				})}
 
-				{!flag && nearestLocation.map((val,ind) => {
-				return	<div className="card mt-5">
+				{!flag && nearestLocation.map((val, ind) => {
+					return <div className="card mt-5">
 						<div className="card-body">
 							<h6 className="card-title float-left">{val.name}</h6>
 							<button className="btn btn-danger float-right btn-sm ml-1" onClick={this.directionNearest.bind(this, ind)}>Direction</button>
-							<button className="btn btn-success float-right btn-sm px-3" onClick={this.selectNearest.bind(this, ind)}>Select</button>						
+							<button className="btn btn-success float-right btn-sm px-3" onClick={this.selectNearest.bind(this, ind)}>Select</button>
 						</div>
 					</div>
 				})}

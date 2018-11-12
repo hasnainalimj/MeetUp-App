@@ -23,19 +23,26 @@ export default class FbLogin extends React.Component {
     const button = document.getElementById('btnFbLogin');
     const loader = document.createElement('i');
     loader.setAttribute('id', 'loading');
-    loader.setAttribute('class', 'fas fa-spinner')
+    loader.setAttribute('class', 'fas fa-spinner fa-spin')
     button.appendChild(loader);
     firebase
       .auth()
       .signInWithPopup(provider)
       .then((result) => {
+
+        localStorage.setItem('user_id', result.user.uid);
+        localStorage.setItem('fullName', result.user.displayName);
+
+        firebase.firestore().collection('users').doc(result.user.uid).set({
+          uid: result.user.uid,
+          fullName: result.user.displayName
+        }, { merge: true })
+      }).then(() => {
         swal({
           title: "Login Successfully",
           icon: "success",
-          button: "Ok", 
+          button: "Ok",
         });
-        localStorage.setItem('user_id', result.user.uid);
-        localStorage.setItem('fullName', result.user.displayName);
         this.setState({
           login: true
         });
@@ -56,14 +63,14 @@ export default class FbLogin extends React.Component {
 
   render() {
     const { login } = this.state;
-    const  user_id = localStorage.getItem('user_id');
+    const user_id = localStorage.getItem('user_id');
     return (
       <div className="Login">
         {/* {user_id && setTimeout(() => { this.props.history.push('/dashboard') }, 1000)} */}
         <img src={Logo} alt="Logo" />
         <br />
         <button type="button" id="btnFbLogin" className="btn btn-primary mt-5 px-5" onClick={this.login}>Login with Facebook</button>
-        {login && <Redirect to={{ pathname: "/details" }} />}
+        {login && <Redirect to={{ pathname: "/dashboard" }} />}
       </div>
     );
   }

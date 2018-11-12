@@ -66,31 +66,30 @@ export default class Direction extends React.Component {
 				{/* <img src={Logo} alt='logo' /> */}
 				<MyMapComponent
 					isMarkerShown
-
 					googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
 					loadingElement={<div style={{ height: `100%` }} />}
 					containerElement={<div style={{ height: `600px` }} />}
 					mapElement={<div style={{ height: `100%` }} />}
 					directions={directions}
 				/>
-
 				<button className="btn btn-success px-5 mt-2" onClick={this.getDirections}>Get Directions</button>
 				<br/>
 				<button className="btn btn-danger px-4 mt-1" onClick={this.back}>Back</button>
-				{/* {setTimeout(() => {this.getDirections()},2000)} */}
 			</div>
 		)
 	}
 }
 
 const center = JSON.parse(localStorage.getItem('coords'));
-
 const MyMapComponent = withScriptjs(withGoogleMap((props) =>
 	<GoogleMap
 		defaultZoom={14}
+		center={{
+			lat: center.latitude,
+			lng: center.longitude
+		  }}
 	>
-		{/* <Marker position={{ lat: center.latitude, lng: center.longitude }} /> */}
-		{/* <Marker position={{ lat: 24.8861479, lng: 67.0595196 }} /> */}
+		{<Marker position={{ lat: center.latitude, lng: center.longitude }} />}
 
 		{props.directions && <DirectionsRenderer directions={props.directions} />}
 	</GoogleMap>

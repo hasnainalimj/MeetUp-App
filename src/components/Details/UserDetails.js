@@ -37,20 +37,13 @@ export default class UserDetails extends React.Component {
     const button = document.getElementById('btnAddDetails');
     const loader = document.createElement('i');
     loader.setAttribute('id', 'loading');
-    loader.setAttribute('class', 'fas fa-spinner')
+    loader.setAttribute('class', 'fas fa-spinner fa-spin')
     button.appendChild(loader);
 
-    firebase.firestore().collection('users').doc(user_id).set({
-      fullName,
+    firebase.firestore().collection('users').doc(user_id).update({
       nickname,
-      phone,
-      uid : user_id
+      phone
     }).then(res => {
-      swal({
-        title: "Details Added Successfully",
-        icon: "success",
-        button: "Ok", 
-      });
       localStorage.setItem('nickname',nickname);
       localStorage.setItem('phone',phone);
       this.props.history.push("/photos");

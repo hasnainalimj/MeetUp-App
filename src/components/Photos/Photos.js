@@ -25,7 +25,7 @@ class Photos extends React.Component {
     const button = document.getElementById('btnUploadImages');
     const loader = document.createElement('i');
     loader.setAttribute('id', 'loading');
-    loader.setAttribute('class', 'fas fa-spinner')
+    loader.setAttribute('class', 'fas fa-spinner fa-spin')
     button.appendChild(loader);
 
     const {pictures} = this.state;
