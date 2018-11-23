@@ -140,12 +140,6 @@ export default class Meeting extends React.Component {
 							</div>
 							<h4 className="fullName mt-1">{value.fullName}</h4>
 							<h6 className="nickname">{value.nickname}</h6>
-							{/* {value.ratings.map((v, i) => {
-								sum += v
-								length = value.ratings.length
-							})} */}
-							{/* <h6 className="card-title text-left"><b>Average Ratings : {(sum - sum / 2) / length}</b></h6> */}
-							<h6 class="average-ratings">Average Ratings : {value.ratings.length}</h6>
 							<div className="buttons-parent mt-3">
 								<button className="btn btn-danger buttons right" onClick={this.remove.bind(this, index)}><i class="fa fa-times"></i></button>
 								<button className="btn btn-success buttons" onClick={this.meet.bind(this, index)}><i class="fas fa-check"></i></button>

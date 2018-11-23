@@ -367,7 +367,7 @@ class Dashboard extends React.Component {
                   });
                 })
               }
-              else if (doc.data().meetingUsername === "Yes" && doc.data().userSay === "No") {
+              else if (doc.data().meetingUserSay === "Yes" && doc.data().userSay === "No") {
                 firebase.firestore().collection('meetings').doc(id).update({
                   status: "Complicated"
                 }).then(res => {
@@ -385,7 +385,7 @@ class Dashboard extends React.Component {
                   });
                 })
               }
-              else if (doc.data().meetingUsername === "No" && doc.data().userSay === "Yes") {
+              else if (doc.data().meetingUserSay === "No" && doc.data().userSay === "Yes") {
                 firebase.firestore().collection('meetings').doc(id).update({
                   status: "Complicated"
                 }).then(res => {
@@ -479,7 +479,7 @@ class Dashboard extends React.Component {
                   });
                 })
               }
-              else if (doc.data().meetingUsername === "Yes" && doc.data().userSay === "No") {
+              else if (doc.data().meetingUserSay === "Yes" && doc.data().userSay === "No") {
                 firebase.firestore().collection('meetings').doc(id).update({
                   status: "Complicated"
                 }).then(res => {
@@ -497,7 +497,7 @@ class Dashboard extends React.Component {
                   });
                 })
               }
-              else if (doc.data().meetingUsername === "No" && doc.data().userSay === "Yes") {
+              else if (doc.data().meetingUserSay === "No" && doc.data().userSay === "Yes") {
                 firebase.firestore().collection('meetings').doc(id).update({
                   status: "Complicated"
                 }).then(res => {
@@ -814,7 +814,7 @@ class Dashboard extends React.Component {
                   });
                 })
               }
-              else if (doc.data().meetingUsername === "Yes" && doc.data().userSay === "No") {
+              else if (doc.data().meetingUserSay === "Yes" && doc.data().userSay === "No") {
                 firebase.firestore().collection('meetings').doc(id).update({
                   status: "Complicated"
                 }).then(res => {
@@ -832,7 +832,7 @@ class Dashboard extends React.Component {
                   });
                 })
               }
-              else if (doc.data().meetingUsername === "No" && doc.data().userSay === "Yes") {
+              else if (doc.data().meetingUserSay === "No" && doc.data().userSay === "Yes") {
                 firebase.firestore().collection('meetings').doc(id).update({
                   status: "Complicated"
                 }).then(res => {
@@ -879,7 +879,7 @@ class Dashboard extends React.Component {
     const id = recievedRequests.acceptedIds[index];
     swal({
       title: "Are you sure?",
-      text: "Did You Really Want To Accept This Meeting?",
+      text: "Did You Really Want To Cancel This Meeting?",
       icon: "warning",
       buttons: true,
       dangerMode: true,
@@ -926,7 +926,7 @@ class Dashboard extends React.Component {
                   });
                 })
               }
-              else if (doc.data().meetingUsername === "Yes" && doc.data().userSay === "No") {
+              else if (doc.data().meetingUserSay === "Yes" && doc.data().userSay === "No") {
                 firebase.firestore().collection('meetings').doc(id).update({
                   status: "Complicated"
                 }).then(res => {
@@ -944,7 +944,7 @@ class Dashboard extends React.Component {
                   });
                 })
               }
-              else if (doc.data().meetingUsername === "No" && doc.data().userSay === "Yes") {
+              else if (doc.data().meetingUserSay === "No" && doc.data().userSay === "Yes") {
                 firebase.firestore().collection('meetings').doc(id).update({
                   status: "Complicated"
                 }).then(res => {
@@ -1088,8 +1088,11 @@ class Dashboard extends React.Component {
     return (
       <div className="pt-5 pr-3 Dashboard">
         {!localStorage.getItem('user_id') && this.props.history.push("/")}
-        <div className='float-right'><SignOut /></div>
-        <div className='float-left'><img src={Logo} alt='logo' /></div>
+        <nav class="navbar navbar-dark bg-dark header float-right">
+        <NavLink to='/profile'><button className="btn btn-primary mr-2">Profile</button></NavLink>
+        <div className="float-right mt-1"><SignOut/></div>   
+        </nav>
+        <div className='float-left'><img src={Logo} alt='logo'/></div>
         <br />
         <div>
           {title && <h3 className='text-dark'>{name}, you haven't done any meeting yet</h3>}
@@ -1158,7 +1161,9 @@ class Dashboard extends React.Component {
                 <h6 className="card-title text-left"><b>Time : </b>{value.meetingTime}</h6>
                 <h6 className="card-title text-left"><b>Status : </b>{value.status}</h6>
                 <button className="btn btn-danger float-right px-5 mt-1 mr-1" onClick={this.sendAcceptToCancel.bind(this, index)}>Cancel</button>
-                {value.meetingDate < currentDate && <div><button className="btn btn-secondary float-right px-5 mt-1 mr-1" onClick={this.sendAcceptSayNo.bind(this, index)}>No</button><button className="btn btn-primary float-right px-5 mt-1 mr-1" onClick={this.sendAcceptSayYes.bind(this, index)}>Yes</button></div>}
+                {/* {value.meetingDate < currentDate && <div><button className="btn btn-secondary float-right px-5 mt-1 mr-1" onClick={this.sendAcceptSayNo.bind(this, index)}>No</button><button className="btn btn-primary float-right px-5 mt-1 mr-1" onClick={this.sendAcceptSayYes.bind(this, index)}>Yes</button></div>} */}
+                <button className="btn btn-secondary float-right px-5 mt-1 mr-1" onClick={this.sendAcceptSayNo.bind(this, index)}>No</button>
+                <button className="btn btn-primary float-right px-5 mt-1 mr-1" onClick={this.sendAcceptSayYes.bind(this, index)}>Yes</button>
               </div>
             </div>
           </div>
@@ -1330,7 +1335,9 @@ class Dashboard extends React.Component {
                 <h6 className="card-title text-left"><b>Time : </b>{value.meetingTime}</h6>
                 <h6 className="card-title text-left"><b>Status : </b>{value.status}</h6>
                 <button className="btn btn-danger float-right px-5 mt-1 mr-1" onClick={this.acceptToCancel.bind(this, index)}>Cancel</button>
-                {value.meetingDate < currentDate && <div><button className="btn btn-secondary float-right px-5 mt-1 mr-1" onClick={this.acceptSayNo.bind(this, index)}>No</button><button className="btn btn-primary float-right px-5 mt-1 mr-1" onClick={this.acceptSayYes.bind(this, index)}>Yes</button></div>}
+                {/* {value.meetingDate < currentDate && <div><button className="btn btn-secondary float-right px-5 mt-1 mr-1" onClick={this.acceptSayNo.bind(this, index)}>No</button><button className="btn btn-primary float-right px-5 mt-1 mr-1" onClick={this.acceptSayYes.bind(this, index)}>Yes</button></div>} */}
+                <button className="btn btn-secondary float-right px-5 mt-1 mr-1" onClick={this.acceptSayNo.bind(this, index)}>No</button>
+                <button className="btn btn-primary float-right px-5 mt-1 mr-1" onClick={this.acceptSayYes.bind(this, index)}>Yes</button>
               </div>
             </div>
           </div>

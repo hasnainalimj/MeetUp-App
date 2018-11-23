@@ -36,7 +36,7 @@ export default class CurrentLocation extends React.Component {
     firebase.firestore().collection('users').doc(user_id).update({
       coords : {latitude : coords.latitude, longitude : coords.longitude},
       registerd : true,
-      ratings : []
+      ratings : [0]
     }).then(resp => {
       localStorage.setItem('coords',JSON.stringify(coords));
       swal({

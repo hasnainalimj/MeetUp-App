@@ -89,9 +89,7 @@ export default class MeetingPoint extends React.Component {
 					localStorage.setItem('MeetingLocation', JSON.stringify(meetingLocation));
 					this.props.history.push("/dateandtime");
 				} else {
-					swal("Cancel Successfully", {
-						icon: "success"
-					});
+					
 				}
 			});
 	}
@@ -136,9 +134,7 @@ export default class MeetingPoint extends React.Component {
 					localStorage.setItem('MeetingLocation', JSON.stringify(meetingLocation));
 					this.props.history.push("/dateandtime");
 				} else {
-					swal("Cancel Successfully", {
-						icon: "success"
-					});
+					
 				}
 			});
 	}

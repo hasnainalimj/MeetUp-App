@@ -1,12 +1,10 @@
-.Dashboard{
+.Profile{
   background-color: #FFF;
   width: 100%;
-  min-height: 100vh;
   text-align: center;
   font-family: Tahoma;
   font-size: calc(10px + 2vmin);
   padding: 30px;
-  border: 10px solid #ff0000;
 }
 
 .mystars{
@@ -15,4 +13,8 @@
 
 .header{
   margin-top: -40px;
+}
+
+.profileImages{
+  border-radius: 50px;
 }
